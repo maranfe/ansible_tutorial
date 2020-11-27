@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: install apache2 packge
+    dnf:
+      name: httpd
+
+  - name: remove some statics tool
+    dnf:
+      name: neofetch
+      state: absent
+
