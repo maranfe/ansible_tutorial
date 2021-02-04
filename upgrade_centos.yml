@@ -1,0 +1,13 @@
+---
+ 
+ - hosts: all
+   become: true
+   pre_tasks:
+ 
+   - name: install updates (CentOS)
+     tags: always
+     dnf:
+       update_cache: yes
+       name: "*"
+       state: latest
+     when: ansible_distribution == "CentOS"
