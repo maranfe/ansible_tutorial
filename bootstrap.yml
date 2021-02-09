@@ -1,0 +1,44 @@
+---
+ 
+ - hosts: all
+   become: true
+   pre_tasks:
+ 
+   - name: install updates (CentOS)
+     tags: always
+     dnf:
+       update_only: yes
+       update_cache: yes
+     when: ansible_distribution == "CentOS"
+ 
+   - name: install updates (Ubuntu)
+     tags: always
+     apt:
+       upgrade: dist
+       update_cache: yes
+     when: ansible_distribution == "Ubuntu"
+
+ - hosts: all
+   become: true
+   tasks:
+
+   - name: create squidward user
+     tags: always 
+     user: 
+       name: squidward
+       groups: root
+
+   - name: add ssh key for squidward
+     tags: always
+     authorized_key:
+       user: squidward
+       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGMA1j26f6ecPVK9mqMWnL3zDHCaSp9JygJJLj1zuZvq ansible"
+
+   - name: add sudoers file for squidward
+     tags: always
+     copy:
+       src: sudoer_squidward
+       dest: /etc/sudoers.d/squidward
+       owner: root 
+       group: root
+       mode: 0440
