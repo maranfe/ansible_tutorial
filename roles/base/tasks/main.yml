@@ -1,0 +1,4 @@
+- name: add ssh key for squidward
+  authorized_key:
+    user: squidward
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGMA1j26f6ecPVK9mqMWnL3zDHCaSp9JygJJLj1zuZvq ansible"
