@@ -1,0 +1,11 @@
+---
+- name: shutdown playbook
+  hosts: file_servers,db_servers,web_servers
+  gather_facts: no
+  remote_user: marco
+  become: true
+
+  tasks:
+    - name: shutdown all nodes
+      community.general.shutdown:
+
